@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/head_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlackBackground">
+
+    <ImageView
+        android:id="@+id/imageCompass"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/black_compass" />
+
+    <io.ghyeok.stickyswitch.widget.StickySwitch
+        android:id="@+id/sticky_switch_flashlight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        app:ss_animationDuration="200"
+        app:ss_animationType="curved"
+        app:ss_iconPadding="22dp"
+        app:ss_iconSize="22dp"
+        app:ss_leftIcon="@drawable/ic_highlight_off_white_24dp"
+        app:ss_leftText="OFF"
+        app:ss_rightIcon="@drawable/ic_highlight_white_24dp"
+        app:ss_rightText="ON"
+        app:ss_selectedTextSize="14sp"
+        app:ss_sliderBackgroundColor="#212121"
+        app:ss_switchColor="#e41d24"
+        app:ss_textColor="@color/colorWhiteTextSwitcher"
+        app:ss_textSize="12sp" />
+
+</RelativeLayout>
