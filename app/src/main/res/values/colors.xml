@@ -5,6 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorBlackBackground">#1c1c1c</color>
     <color name="colorWhiteBackground">#f4f4f4</color>
-    <color name="colorWhiteTextSwitcher">#FAFAFA</color>
-    <color name="colorBlackTextSwitcher">#1c1c1c</color>
+    <color name="colorWhiteTextUI">#FAFAFA</color>
+    <color name="colorBlackTextUI">#1c1c1c</color>
 </resources>

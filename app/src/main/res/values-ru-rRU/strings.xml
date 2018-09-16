@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Компас</string>
+    <string name="no_flash_available_on_your_device">На вашем устройстве нет вспышки</string>
+    <string name="permission_denied_for_the_camera">Разрешение на использование камеры отклонено</string>
+    <string name="north">С</string>
+    <string name="north_east">СВ</string>
+    <string name="east">В</string>
+    <string name="south_east">ЮВ</string>
+    <string name="south">Ю</string>
+    <string name="south_west">ЮЗ</string>
+    <string name="west">З</string>
+    <string name="north_west">СЗ</string>
+    <string name="on">вкл</string>
+    <string name="off">выкл</string>
+</resources>

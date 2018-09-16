@@ -21,19 +21,31 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 import io.ghyeok.stickyswitch.widget.StickySwitch;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    private StickySwitch stickySwitch;
+    @BindView(R.id.arrow_north)
+    ImageView arrowNorth;
+    @BindView(R.id.imageCompass)
+    ImageView imageCompass;
+    @BindView(R.id.direction_text_view)
+    TextView directionTextView;
+    @BindView(R.id.degree_text_view)
+    TextView degreeTextView;
+    @BindView(R.id.sticky_switch_flashlight)
+    StickySwitch stickySwitchFlashlight;
+    @BindView(R.id.head_layout)
+    RelativeLayout headLayout;
     private static final int CAMERA_REQUEST = 50;
     private boolean flashLightStatus = false;
     private Window window;
 
-    private ImageView compassImageView;
-    private RelativeLayout headRelativeLayout;
     private float[] gravity = new float[3];
     private float[] geomagnetic = new float[3];
     private float azimuth = 0f;
@@ -44,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         initialization();
     }
 
@@ -55,17 +68,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorBlackBackground));
         window.setNavigationBarColor(ContextCompat.getColor(this, R.color.colorBlackBackground));
-
-        compassImageView = findViewById(R.id.imageCompass);
-        headRelativeLayout = findViewById(R.id.head_layout);
-        stickySwitch = findViewById(R.id.sticky_switch_flashlight);
-
+        arrowNorth.bringToFront();
         final boolean hasCameraFlash = getPackageManager().
                 hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
         boolean isEnabled = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED;
-        stickySwitch.setEnabled(isEnabled);
-        stickySwitch.setOnClickListener(new View.OnClickListener() {
+        stickySwitchFlashlight.setEnabled(isEnabled);
+        stickySwitchFlashlight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (hasCameraFlash) {
@@ -74,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     else
                         flashLightOn();
                 } else {
-                    Toasty.error(getBaseContext(), "No flash available on your device", 1, true).show();
+                    Toasty.error(getBaseContext(), getString(R.string.no_flash_available_on_your_device), 1, true).show();
                 }
             }
         });
@@ -93,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
+
     }
 
     private void flashLightOn() {
@@ -100,19 +110,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         try {
             String cameraId = cameraManager.getCameraIdList()[0];
             cameraManager.setTorchMode(cameraId, true);
-            compassImageView.setImageResource(R.drawable.white_compass);
-            headRelativeLayout.setBackgroundColor(getColor(R.color.colorWhiteBackground));
-            stickySwitch.setTextColor(getColor(R.color.colorBlackTextSwitcher));
             getWhiteUI();
             flashLightStatus = true;
         } catch (CameraAccessException e) {
         }
-    }
-
-    private void getWhiteUI() {
-        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorWhiteBackground));
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        window.setNavigationBarColor(ContextCompat.getColor(this, R.color.colorWhiteBackground));
     }
 
     private void flashLightOff() {
@@ -120,16 +121,32 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         try {
             String cameraId = cameraManager.getCameraIdList()[0];
             cameraManager.setTorchMode(cameraId, false);
-            compassImageView.setImageResource(R.drawable.black_compass);
-            headRelativeLayout.setBackgroundColor(getColor(R.color.colorBlackBackground));
-            stickySwitch.setTextColor(getColor(R.color.colorWhiteTextSwitcher));
             getBlackUI();
             flashLightStatus = false;
         } catch (CameraAccessException e) {
         }
     }
 
+    private void getWhiteUI() {
+        stickySwitchFlashlight.setTextColor(getColor(R.color.colorBlackTextUI));
+        directionTextView.setTextColor(getColor(R.color.colorBlackTextUI));
+        degreeTextView.setTextColor(getColor(R.color.colorBlackTextUI));
+        arrowNorth.setImageResource(R.drawable.arrow_north_white);
+        imageCompass.setImageResource(R.drawable.white_compass);
+        headLayout.setBackgroundColor(getColor(R.color.colorWhiteBackground));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorWhiteBackground));
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        window.setNavigationBarColor(ContextCompat.getColor(this, R.color.colorWhiteBackground));
+    }
+
+
     private void getBlackUI() {
+        stickySwitchFlashlight.setTextColor(getColor(R.color.colorWhiteTextUI));
+        directionTextView.setTextColor(getColor(R.color.colorWhiteTextUI));
+        degreeTextView.setTextColor(getColor(R.color.colorWhiteTextUI));
+        arrowNorth.setImageResource(R.drawable.arrow_north_black);
+        imageCompass.setImageResource(R.drawable.black_compass);
+        headLayout.setBackgroundColor(getColor(R.color.colorBlackBackground));
         window.getDecorView().setSystemUiVisibility(0);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.colorBlackBackground));
         window.setNavigationBarColor(ContextCompat.getColor(this, R.color.colorBlackBackground));
@@ -140,9 +157,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         switch (requestCode) {
             case CAMERA_REQUEST:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    stickySwitch.setEnabled(true);
+                    stickySwitchFlashlight.setEnabled(true);
                 } else {
-                    Toasty.error(this, "Permission Denied for the Camera", 1, true).show();
+                    Toasty.error(this, getString(R.string.permission_denied_for_the_camera), 1, true).show();
                 }
                 break;
         }
@@ -173,15 +190,40 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 azimuth = (float) Math.toDegrees(orientation[0]);
                 azimuth = (azimuth + 360) % 360;
 
+                getDirectionName(azimuth);
+
                 Animation animation = new RotateAnimation(-currentAzimuth, -azimuth, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 currentAzimuth = azimuth;
                 animation.setDuration(500);
                 animation.setRepeatCount(0);
                 animation.setFillAfter(true);
 
-                compassImageView.startAnimation(animation);
+                imageCompass.startAnimation(animation);
             }
         }
+    }
+
+    private void getDirectionName(float azimuth) {
+        int range = (int) (azimuth / (360f / 16f));
+        String dirTxt = "";
+        if (range == 15 || range == 0)
+            dirTxt = getString(R.string.north);
+        if (range == 1 || range == 2)
+            dirTxt = getString(R.string.north_east);
+        if (range == 3 || range == 4)
+            dirTxt = getString(R.string.east);
+        if (range == 5 || range == 6)
+            dirTxt = getString(R.string.south_east);
+        if (range == 7 || range == 8)
+            dirTxt = getString(R.string.south);
+        if (range == 9 || range == 10)
+            dirTxt = getString(R.string.south_west);
+        if (range == 11 || range == 12)
+            dirTxt = getString(R.string.west);
+        if (range == 13 || range == 14)
+            dirTxt = getString(R.string.north_west);
+        directionTextView.setText(dirTxt);
+        degreeTextView.setText(String.valueOf((int) azimuth) + "°");
     }
 
     @Override

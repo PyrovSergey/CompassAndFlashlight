@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">Flashlight</string>
+    <string name="app_name">Compass</string>
+    <string name="no_flash_available_on_your_device">No flash available on your device</string>
+    <string name="permission_denied_for_the_camera">Permission Denied for the Camera</string>
+    <string name="north">N</string>
+    <string name="north_east">NE</string>
+    <string name="east">E</string>
+    <string name="south_east">SE</string>
+    <string name="south">S</string>
+    <string name="south_west">SW</string>
+    <string name="west">W</string>
+    <string name="north_west">NW</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
 </resources>
