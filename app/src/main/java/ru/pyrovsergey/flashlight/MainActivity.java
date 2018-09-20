@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private float azimuth = 0f;
     private float currentAzimuth = 0f;
     private SensorManager sensorManager;
+    private CameraManager cameraManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +93,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume() {
         super.onResume();
+        CameraManager.TorchCallback torchCallback = new CameraManager.TorchCallback() {
+            @Override
+            public void onTorchModeUnavailable(String cameraId) {
+                super.onTorchModeUnavailable(cameraId);
+            }
+
+            @Override
+            public void onTorchModeChanged(String cameraId, boolean enabled) {
+                super.onTorchModeChanged(cameraId, enabled);
+                if (enabled) {
+                    flashLightOn();
+                    stickySwitchFlashlight.setDirection(StickySwitch.Direction.RIGHT);
+                } else {
+                    flashLightOff();
+                    stickySwitchFlashlight.setDirection(StickySwitch.Direction.LEFT);
+                }
+            }
+        };
+        cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        cameraManager.registerTorchCallback(torchCallback, null);
+
         sensorManager.registerListener(this, sensorManager
                 .getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_GAME);
         sensorManager.registerListener(this, sensorManager
@@ -102,11 +124,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
-
     }
 
     private void flashLightOn() {
-        CameraManager cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         try {
             String cameraId = cameraManager.getCameraIdList()[0];
             cameraManager.setTorchMode(cameraId, true);
@@ -117,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void flashLightOff() {
-        CameraManager cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         try {
             String cameraId = cameraManager.getCameraIdList()[0];
             cameraManager.setTorchMode(cameraId, false);
