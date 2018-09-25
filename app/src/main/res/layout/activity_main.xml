@@ -3,13 +3,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/head_layout"
+    android:id="@+id/headLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlackBackground">
 
     <ImageView
-        android:id="@+id/arrow_north"
+        android:id="@+id/arrowNorth"
         android:layout_width="30dp"
         android:layout_height="10dp"
         android:layout_above="@+id/imageCompass"
@@ -27,7 +27,7 @@
         android:src="@drawable/black_compass" />
 
     <TextView
-        android:id="@+id/direction_text_view"
+        android:id="@+id/directionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -38,7 +38,7 @@
         tools:text="SW" />
 
     <TextView
-        android:id="@+id/degree_text_view"
+        android:id="@+id/degreeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -48,7 +48,7 @@
         tools:text="90" />
 
     <io.ghyeok.stickyswitch.widget.StickySwitch
-        android:id="@+id/sticky_switch_flashlight"
+        android:id="@+id/stickySwitchFlashlight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
