@@ -1,4 +1,4 @@
-# TasksEdge
+# Compass
 A simple application that contains a compass and allows you to control the flashlight.
 
 <a href="https://play.google.com/store/apps/details?id=ru.pyrovsergey.flashlight">
