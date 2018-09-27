@@ -1,16 +1,19 @@
 package ru.pyrovsergey.flashlight
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import ru.pyrovsergey.flashlight.presenter.AppComponent
 import ru.pyrovsergey.flashlight.presenter.DaggerAppComponent
 
 class App : Application() {
-    private lateinit var context: Context
 
     companion object {
         lateinit var appComponent: AppComponent
+        @SuppressLint("StaticFieldLeak")
         lateinit var instance: App
+        @SuppressLint("StaticFieldLeak")
+        lateinit var context: Context
     }
 
     override fun onCreate() {
@@ -18,17 +21,5 @@ class App : Application() {
         instance = this
         context = applicationContext
         appComponent = DaggerAppComponent.create()
-    }
-
-    fun getInstance(): App {
-        return instance
-    }
-
-    fun getContex(): Context {
-        return context
-    }
-
-    fun getComponent(): AppComponent {
-        return appComponent
     }
 }

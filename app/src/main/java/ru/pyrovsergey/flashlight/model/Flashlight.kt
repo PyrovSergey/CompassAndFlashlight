@@ -9,11 +9,11 @@ import ru.pyrovsergey.flashlight.presenter.Presenter
 
 class Flashlight {
 
-    private var cameraManager: CameraManager = App.instance.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+    private var cameraManager: CameraManager = App.context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
     lateinit var presenterCallback: FlashlightCallback
     lateinit var torchCallback: CameraManager.TorchCallback
     private var flashLightStatus = false
-    private val hasCameraFlash = App.instance.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+    private val hasCameraFlash = App.context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
 
     fun prepare(presenter: Presenter) {
         presenterCallback = presenter

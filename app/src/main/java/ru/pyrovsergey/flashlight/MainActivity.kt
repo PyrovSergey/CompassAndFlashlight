@@ -31,7 +31,7 @@ class MainActivity : MvpAppCompatActivity(), ViewContract, SensorEventListener {
         arrowNorth.bringToFront()
 
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_REQUEST)
-        setEnabledViewStickySwitchFlashlight(ContextCompat.checkSelfPermission(App.instance, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+        setEnabledViewStickySwitchFlashlight(ContextCompat.checkSelfPermission(App.context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
     }
 
     override fun onResume() {

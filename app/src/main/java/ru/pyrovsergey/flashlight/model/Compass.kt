@@ -14,7 +14,7 @@ import ru.pyrovsergey.flashlight.presenter.Presenter
 class Compass {
     private lateinit var presenterCallback: CompassCallback
     private lateinit var sensorManager: SensorManager
-    private val context = App.instance
+    private val context = App.context
     private val gravity = FloatArray(3)
     private val geomagnetic = FloatArray(3)
     private var azimuth = 0f
