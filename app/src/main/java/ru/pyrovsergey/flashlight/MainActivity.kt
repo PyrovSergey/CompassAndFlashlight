@@ -18,9 +18,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import ru.pyrovsergey.flashlight.presenter.Presenter
 import ru.pyrovsergey.flashlight.presenter.ViewContract
 
-const val CAMERA_REQUEST = 50
 
 class MainActivity : MvpAppCompatActivity(), ViewContract, SensorEventListener {
+    companion object {
+        const val CAMERA_REQUEST = 50
+    }
 
     @InjectPresenter
     lateinit var presenter: Presenter
